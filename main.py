@@ -12,8 +12,8 @@ def init_session_state():
 
 def create_layout():
     st.set_page_config(page_title="SQL & Education Assistant", layout="wide")
-    st.title("💬 SQL & Education Assistant")
-    st.caption("Ask questions about your database or get educational assistance")
+    st.title("🪙 Intelligent Digital Assets Assistant")
+    st.caption("Ask questions about digital assets in real time or get educational assistance")
 
 def create_sidebar():
     with st.sidebar:
