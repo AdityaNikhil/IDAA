@@ -9,5 +9,6 @@ pydantic
 PyYAML
 psycopg2-binary
 pandas
-
+fastapi
+uvicorn
 

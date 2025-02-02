@@ -27,3 +27,9 @@ def setup_paths():
     os.environ['PROJECT_ROOT'] = str(project_root)
     os.environ['APP_ROOT'] = str(app_dir)
 
+
+
+
+
+    
+
