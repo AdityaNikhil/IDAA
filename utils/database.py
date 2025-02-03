@@ -1,12 +1,14 @@
 # app/utils/database.py
-from langchain.tools import QuerySQLDatabaseTool
+from langchain_community.tools import QuerySQLDatabaseTool
 from models import State
 from config import llm
 from langchain_community.utilities import SQLDatabase
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+import os
 
-db = SQLDatabase.from_uri("postgresql://postgres:postgres@localhost:5432", include_tables=["cryptocurrencies", "market_data"])
+db_path = os.environ.get("DATABASE_URI")
+db = SQLDatabase.from_uri(db_path, include_tables=["cryptocurrencies", "market_data"])
 
 def execute_query(state: State):
     """Execute SQL query."""
