@@ -1,6 +1,5 @@
 # app/main.py
 import streamlit as st
-from workflow.graph import create_workflow
 from typing import Dict
 import requests
 
@@ -8,7 +7,7 @@ import initialize
 initialize.setup_paths()
 
 def process_via_api(prompt: str) -> Dict:
-    api_url = "http://localhost:8000/process" 
+    api_url = "http://fastapi:8000/process" 
     payload = {
         "question": prompt,
         "sql_query": "",
