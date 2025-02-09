@@ -5,8 +5,18 @@ from workflow.graph import create_workflow
 from langchain_community.utilities import SQLDatabase
 import os
 from utils.database import db
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Enable CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow requests from any domain (* for all)
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 class Query(BaseModel):
     question: str
