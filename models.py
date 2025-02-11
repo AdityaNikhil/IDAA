@@ -1,4 +1,3 @@
-# app/models.py
 from typing import TypedDict
 from pydantic import BaseModel, Field
 

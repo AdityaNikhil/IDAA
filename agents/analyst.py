@@ -1,25 +1,20 @@
-from models import State, ConvertToSQL
-from config import llm, ANALYST_SYS_PROMPT
-from langchain.prompts.chat import ChatPromptTemplate
-from langchain.tools import QuerySQLDatabaseTool
+from models import State
+from config import llm
+from langchain.chains import create_sql_query_chain
+from utils.database import db
 
 
 def analyst_llm(state: State):
-    system = ANALYST_SYS_PROMPT
-    question = state["question"]
-    human = f"Question: {question}"
+    question = state['question']
+    generate_query = create_sql_query_chain(llm, db)
+    try: 
+        query = generate_query.invoke({"question": question})
+        state['sql_query']=(query.split('SQLQuery: ')[1])
 
-    convert_prompt = ChatPromptTemplate.from_messages([
-        ("system", system),
-        ("human", human),
-    ])
-
-    structured_llm = llm.with_structured_output(ConvertToSQL)
-    sql_generator = convert_prompt | structured_llm
-    result = sql_generator.invoke({})
-    state["sql_query"] = result.sql_query
+    except:
+        state['sql_query'] = ""
+        
     return state
-
 
 
 

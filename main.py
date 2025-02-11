@@ -1,4 +1,3 @@
-# app/main.py
 import streamlit as st
 from typing import Dict
 import requests
