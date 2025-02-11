@@ -13,5 +13,8 @@ class ConvertToSQL(BaseModel):
         description="The SQL query corresponding to the user's natural language question."
     )
 
+class sqlquery(BaseModel):
+    sql_query: str = Field(..., title="Syntactically correct SQL Query")
+
 class QueryOutput(BaseModel):
     category: str = Field(description="Category of the query: analyst, educate, or finish")

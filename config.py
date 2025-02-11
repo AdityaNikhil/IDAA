@@ -1,4 +1,3 @@
-# app/config.py
 from langchain_groq import ChatGroq
 import os
 import yaml

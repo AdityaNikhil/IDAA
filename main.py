@@ -1,6 +1,7 @@
 import streamlit as st
 from typing import Dict
 import requests
+from utils.database import test_db_connection, db
 
 import initialize
 initialize.setup_paths()
@@ -17,8 +18,6 @@ def process_via_api(prompt: str) -> Dict:
     
     response = requests.post(api_url, json=payload)
     return response.json()
-
-
 
 def init_session_state():
     if "messages" not in st.session_state:
@@ -37,6 +36,14 @@ def create_sidebar():
         - Answer digital assets related questions
         - Provide analytical insights on real time coin market data
         """)
+        
+        # Database connection check
+        db_connection = test_db_connection(db)
+        if db_connection == 'Error':
+            st.error("Database connection failed")
+        st.success("Database connection successful")
+        
+        # Clear chat history
         if st.button("Clear Chat History"):
             st.session_state.messages = []
             st.rerun()

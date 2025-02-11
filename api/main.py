@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from workflow.graph import create_workflow
 from langchain_community.utilities import SQLDatabase
 import os
-from utils.database import db
+from utils.database import db, test_db_connection
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -34,12 +34,13 @@ async def process_query(query: Query):
 
 @app.get("/health")
 async def health_check():
-    try:
-        # Execute a simple query to check database connection
-        db.run("SELECT * FROM cryptocurrencies LIMIT 1")
-        return {"status": "healthy", "database": "connected"}
-    except Exception as e:
+
+    # Execute a simple query to check database connection
+    db_connection = test_db_connection(db)
+    if db_connection == 'Error':
         raise HTTPException(
             status_code=503,
             detail="Database connection failed"
         )
+    return {"status": "healthy", "database": "connected"}
+
