@@ -37,16 +37,28 @@ def create_sidebar():
         - Provide analytical insights on real time coin market data
         """)
         
+        # Model selection
+        selected_model = st.selectbox(
+            "Select your model",
+            ('gpt-4o-mini', 'llama3-70b-8192'),
+            index=0, # Defailt to llama3-70b-8192
+            help="Choose the AI model to use for responses"
+            )   
+        st.session_state.selected_model = selected_model 
+        st.caption(f"{selected_model} is selected")
+
         # Database connection check
         db_connection = test_db_connection(db)
-        if db_connection == 'Error':
+        if db_connection != 'Error':
+            st.success("Database connection successful")
+        else:
             st.error("Database connection failed")
-        st.success("Database connection successful")
         
         # Clear chat history
         if st.button("Clear Chat History"):
             st.session_state.messages = []
-            st.rerun()
+            st.rerun() 
+        
 
 def main():
     init_session_state()

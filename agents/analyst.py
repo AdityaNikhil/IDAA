@@ -6,11 +6,12 @@ from utils.database import db
 def analyst_llm(state: State):
     question = state['question']
     generate_query = create_sql_query_chain(llm, db)
-
-    query = generate_query.invoke({"question": question}) 
-    state['sql_query']=query
+    try:
+        query = generate_query.invoke({"question": question}) 
+        state['sql_query']=query.split('SQLQuery: ')[1]
+    except:
+        state['sql_query'] = ""
         
     return state
-
 
 

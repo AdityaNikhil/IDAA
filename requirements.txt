@@ -1,6 +1,7 @@
 streamlit
 langchain
 langchain-groq
+langchain-openai
 langchain_community
 langchain-core
 langgraph

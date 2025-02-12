@@ -13,14 +13,17 @@ db = SQLDatabase.from_uri(db_path, include_tables=["cryptocurrencies", "market_d
 
 # Test Database connection
 def test_db_connection(db):
-    test_connection = {
-        'table_1':db.run("SELECT * FROM cryptocurrencies LIMIT 1"),
-        'table_2':db.run("SELECT * FROM market_data LIMIT 1")
-    }
-    for _, status in enumerate(test_connection):
-        if 'Error' in status:
-            return 'Error'
-    return 'Success'
+    try:
+        test_connection = {
+            'table_1':db.run("SELECT * FROM cryptocurrencies LIMIT 1"),
+            'table_2':db.run("SELECT * FROM market_data LIMIT 1")
+        }
+        for _, status in enumerate(test_connection):
+            if 'Error' in status:
+                return 'Error'
+        return 'Success'
+    except:
+        return 'Error'
 
 def correct_query(state: State): 
     query = state["sql_query"]
@@ -106,7 +109,8 @@ def generate_answer(state: State):
             question {question},
             query {query},
             and the result {result}, provide a detailed response to the user.
-            Do not mention how you obtained the result, where you got the result from or any of your calculations. 
+            
+            ** STRICTLY DO NOT MENTION how you obtained the result, WHERE YOU GOT the result from or any of sql calculations. **
              """),
         ]
     )
