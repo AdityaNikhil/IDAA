@@ -1,0 +1,11 @@
+# requirements.txt
+streamlit
+langchain
+langchain-groq
+langchain_community
+langchain-core
+langgraph
+pydantic
+PyYAML
+psycopg2-binary
+pandas
