@@ -7,6 +7,7 @@ class State(TypedDict):
     query_result: str
     agents: str
     agent_result: str
+    viz_code: str
 
 class ConvertToSQL(BaseModel):
     sql_query: str = Field(

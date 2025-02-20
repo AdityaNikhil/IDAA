@@ -13,11 +13,12 @@ def process_via_api(prompt: str) -> Dict:
         "sql_query": "",
         "query_result": "",
         "agents": "",
-        "agent_result": ""
+        "agent_result": "",
+        "viz_code": ""  
     }
-    
     response = requests.post(api_url, json=payload)
     return response.json()
+
 
 def init_session_state():
     if "messages" not in st.session_state:
@@ -69,6 +70,12 @@ def main():
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
+            # If message contains visualization code, execute it
+            if "viz_code" in message:
+                try:
+                    exec(message["viz_code"])
+                except Exception as e:
+                    st.error(f"Error displaying visualization: {str(e)}")
 
     # Handle user input
     if prompt := st.chat_input("What would you like to know?"):
@@ -81,10 +88,21 @@ def main():
                 try:
                     response = process_via_api(prompt)
                     st.markdown(response["agent_result"])
-                    st.session_state.messages.append({
+    
+                    # Store both text and visualization in session state
+                    message_with_viz = {
                         "role": "assistant",
                         "content": response["agent_result"]
-                    })
+                    }
+                    
+                    # Add visualization code if present
+                    if "viz_code" in response and response["viz_code"]:
+                        message_with_viz["viz_code"] = response["viz_code"]
+                        # Display current visualization
+                        exec(response["viz_code"])
+                    
+                    st.session_state.messages.append(message_with_viz)
+
                 except Exception as e:
                     st.error(f"An error occurred: {str(e)}")
 

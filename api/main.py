@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from workflow.graph import create_workflow
-from langchain_community.utilities import SQLDatabase
 import os
 from utils.database import db, test_db_connection
 from fastapi.middleware.cors import CORSMiddleware
@@ -23,6 +22,7 @@ class Query(BaseModel):
     query_result: str = ""
     agents: str = ""
     agent_result: str = ""
+    viz_code: str = ""
 
 @app.post("/process")
 async def process_query(query: Query):
