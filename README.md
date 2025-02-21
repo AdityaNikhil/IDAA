@@ -20,22 +20,7 @@ IDAA (Intelligent Digital Asset Advisor) aims to develop an AI-powered financial
 
 ## Approach
 
-```mermaid
-graph TD;
-    user_query --> supervisor;
-    supervisor --> analyst;
-    supervisor --> advisor;
-    supervisor --> prof;
-    advisor --> query_vector_database;
-    prof --> query_internet;
-    analyst --> query_sql_database;
-    query_sql_database --> |Info. extracted from postgres db| generate_human_readable_answer;
-    generate_human_readable_answer --> generate_response;
-    generate_human_readable_answer -.-> generate_chart;
-    generate_chart --> generate_response;
-    query_vector_database --> |Info. extracted from vector db| generate_response;
-    query_internet --> |Info. extracted from internet| generate_response;
-```
+![mermaid-chart](assets/mermaid.png)
 
 1. The user query is passed down to the supervisor node which is responsible for selecting the right agent to answer the given query. 
 2. The `analyst` agent is connected to the postgres db which contains real time historical market data of different cryptocurrencies.
