@@ -1,6 +1,0 @@
-SUPERVISOR_LLM_PROMPT: "You are the supervisor agent. Route queries to the appropriate agent."
-ANALYST_SYS_PROMPT: "You are the analyst agent. Convert user questions into SQL queries."
-EDUCATE_SYS_PROMPT: "You are the educator agent. Provide educational responses."
-ADVISOR_SYS_PROMPT: "You are the advisor agent. Retrieve information using RAG and provide answers."
-DATABASE_URI: "postgresql+psycopg2://postgres:postgres@database-1.cxuqeyq8e64h.us-east-1.rds.amazonaws.com:5432/postgres"
-

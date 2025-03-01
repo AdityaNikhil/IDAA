@@ -5,7 +5,7 @@ Intelligent Digital Assets Assistant (IDAA)
 </center>
 </h1>
 
-[![Watch the Demo](assets/thumbnail.png)](https://www.youtube.com/watch?v=anrQrBgF3Xw&ab_channel=AdityaNikhil)
+[![Watch the Demo](assets/thumbnail.png)](https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil)
 
 ## Table of contents
 1. [Overview](#overview)
