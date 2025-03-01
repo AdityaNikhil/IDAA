@@ -1,21 +1,24 @@
 from langgraph.graph import StateGraph, START, END
 from models import State
-from agents.supervisor import supervisor_llm, supervisor_router
-from agents.analyst import analyst_llm
-from agents.educator import educate_llm
-from utils.database import correct_query, execute_query, generate_answer, generate_chart
+from agents.supervisor import supervisor_agent, supervisor_router, end_node
+from agents.analyst import analyst_agent
+from agents.educator import search_web, summarize_results
+from utils.database import correct_query, execute_query, generate_response, generate_chart
 
 
 def create_workflow():
+
     workflow = StateGraph(State)
 
-    workflow.add_node("supervisor", supervisor_llm)
-    workflow.add_node("analyst", analyst_llm)
-    workflow.add_node("educate", educate_llm)
-    workflow.add_node("generate_chart", generate_chart)
+    workflow.add_node("supervisor", supervisor_agent)
+    workflow.add_node("analyst", analyst_agent)
     workflow.add_node("correct_query", correct_query)
     workflow.add_node("execute_sql", execute_query)
-    workflow.add_node("generate_human_readable_answer", generate_answer)
+    workflow.add_node("prof", search_web)
+    workflow.add_node("summarize_results", summarize_results)
+    workflow.add_node("generate_chart", generate_chart)
+    workflow.add_node("end_node", end_node)
+    workflow.add_node("generate_response", generate_response)
 
     workflow.add_edge(START, "supervisor")
 
@@ -24,17 +27,23 @@ def create_workflow():
         supervisor_router,
         {
             "analyst": "analyst",
-            "educate": "educate",
-            "finish": END
+            "prof": "prof",
+            "Irrelevant Query": "end_node"
         },
     )
-    
+
+    workflow.add_edge("prof", "summarize_results")
+    workflow.add_edge("summarize_results", "generate_response")
+
     workflow.add_edge("analyst", "correct_query")
     workflow.add_edge("correct_query", "execute_sql")
-    workflow.add_edge("execute_sql", "generate_human_readable_answer")
-    workflow.add_edge("generate_human_readable_answer", "generate_chart")
+    workflow.add_edge("execute_sql", "generate_response")
 
-    workflow.add_edge("educate", END)
+    workflow.add_edge("generate_response", "generate_chart")
     workflow.add_edge("generate_chart", END)
+    workflow.add_edge("end_node", END)
 
-    return workflow.compile()
+    app = workflow.compile()
+
+    return app
+

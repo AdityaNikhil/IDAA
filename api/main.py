@@ -20,9 +20,12 @@ class Query(BaseModel):
     question: str
     sql_query: str = ""
     query_result: str = ""
-    agents: str = ""
-    agent_result: str = ""
     viz_code: str = ""
+    sources: list[str] = []
+    web_results: list[str] = []
+    summarized_results: list[str] = []
+    agents: str = ""
+    response: str = ""
 
 @app.post("/process")
 async def process_query(query: Query):

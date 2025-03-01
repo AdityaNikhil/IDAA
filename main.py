@@ -12,9 +12,12 @@ def process_via_api(prompt: str) -> Dict:
         "question": prompt,
         "sql_query": "",
         "query_result": "",
+        "sources": [],
+        "web_results": [],
+        "summarized_results": [],
+        "viz_code": "",
         "agents": "",
-        "agent_result": "",
-        "viz_code": ""  
+        "response": ""
     }
     response = requests.post(api_url, json=payload)
     return response.json()
@@ -69,7 +72,7 @@ def main():
     # Display chat history
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+            st.write(message["content"])
             # If message contains visualization code, execute it
             if "viz_code" in message:
                 try:
@@ -87,12 +90,12 @@ def main():
             with st.spinner("Thinking..."):
                 try:
                     response = process_via_api(prompt)
-                    st.markdown(response["agent_result"])
+                    st.write(response["response"])
     
                     # Store both text and visualization in session state
                     message_with_viz = {
                         "role": "assistant",
-                        "content": response["agent_result"]
+                        "content": response["response"]
                     }
                     
                     # Add visualization code if present

@@ -3,7 +3,7 @@ from models import State, QueryOutput
 from config import llm, SUPERVISOR_LLM_PROMPT
 from langchain.prompts.chat import ChatPromptTemplate
 
-def supervisor_llm(state: State):
+def supervisor_agent(state: State):
     question = state["question"]
     if question == 'finish':
         state["agents"] = 'finish'
@@ -26,5 +26,12 @@ def supervisor_router(state: State):
     if state["agents"].lower() == "analyst":
         return "analyst"
     elif state["agents"].lower() == "finish":
-        return "finish"
-    return "educate"
+        return "Irrelevant Query"
+    else:
+        return "prof"
+    
+def end_node(state: State):
+    
+    state['response'] = "Sorry, I can only answer questions relating to the digital assets."
+
+    return state

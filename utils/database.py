@@ -92,33 +92,47 @@ def execute_query(state: State):
     execute_query_tool = QuerySQLDataBaseTool(db=db)
     try: 
         result = execute_query_tool.invoke(state["sql_query"])
-        state["query_result"] = result
+        state["response"] = result
+        state['query_result'] = result
     except:
-        state["query_result"] = ""
+        state["response"] = ""
+        state['query_result'] = ""
 
     return state
 
 
-def generate_answer(state: State):
-    question = state["question"]
-    query = state["sql_query"]
-    result = state["query_result"]
+def generate_response(state: State):
+  
     prompt = ChatPromptTemplate.from_messages(
         [
-            ("system",f""" Given the following user question, corresponding SQL query, and the result 
-            question {question},
-            query {query},
-            and the result {result}, provide a detailed response to the user.
-            
-            ** STRICTLY DO NOT MENTION how you obtained the result, WHERE YOU GOT the result from or any of sql calculations. **
-             """),
+            ("system", """
+                Given the following user query and context, generate a response that directly answers the user query using relevant 
+                information from the context. Ensure that the response is clear, concise, and well-structured. 
+
+                Question: {question} 
+                Context: {context} 
+                sources: {sources}
+
+                Provide a human-readable response directly addressing the user query in a proper markdown format.
+             """
+             )
         ]
     )
     chain = prompt | llm 
-    response = chain.invoke({})
-    state["agent_result"] = response.content
-    
+
+    if not state['sources'] :
+
+        response = chain.invoke({"question": state["question"], "context": state["query_result"], "sources": ''})
+        state["response"] = response.content
+        
+        return state
+
+    content = "\n\n".join([summary for summary in state["summarized_results"]])
+    response = chain.invoke({"question": state["question"], "context": content, "sources": state['sources']})
+    state['response'] = response.content + '\n\n'+ '#### References' + '\n' + '\n'.join(state['sources'])
+
     return state
+    
 
 def extract_response_and_code(response_text: str):
     try:
@@ -144,11 +158,11 @@ def extract_response_and_code(response_text: str):
     
 
 def generate_chart(state: State):
-    question = state["question"]
-    query_result = state["query_result"]
-    response = state["agent_result"]
 
     if "show" in state["question"].lower() or "plot" in state["question"].lower() or "generate" in state["question"].lower():
+        question = state["question"]
+        query_result = state["query_result"]
+        response = state["response"]
 
         if not query_result == "": # In case the query was successful
 
@@ -164,7 +178,7 @@ def generate_chart(state: State):
                  
                 Ensure that the figure size is (6, 3)
                  
-                Also, you will rewrite the human readable answer.
+                Also, you will rewrite the human readable answer. Remove all other irrelevant details about generating the plot.  
                  
                 Structure the response in the following format:
                 
@@ -183,7 +197,7 @@ def generate_chart(state: State):
             code = response['python_code'].strip('```')
             state["viz_code"] = code.strip('python')
 
-            state['agent_result'] = response['agent_response']
+            state['response'] = response['agent_response']
 
             return state
 

@@ -8,7 +8,7 @@ Intelligent Digital Assets Assistant (IDAA)
 [![Watch the Demo](assets/thumbnail.png)](https://www.youtube.com/watch?v=anrQrBgF3Xw&ab_channel=AdityaNikhil)
 
 ## Table of contents
-1. [Introduction](#introduction)
+1. [Overview](#overview)
 2. [Approach](#approach)
 3. [Setup](#setup)
 4. [Getting Started](#getting-started)
@@ -59,8 +59,9 @@ environment:
   LANGSMITH_ENDPOINT: "https://api.smith.langchain.com"
   LANGSMITH_API_KEY: "YOUR_API_KEY"
   LANGSMITH_PROJECT: "PROJECT-NAME"
+  TAVILY_API_KEY: "YOUR_API_KEY"
   GROQ_API_KEY: "YOUR_API_KEY"
-  OPENAI_API_KEY: "YOUR_API_KEY" # OPTIONAL
+  OPENAI_API_KEY: "YOUR_API_KEY" 
   DATABASE_URI: "DATABASE_URI"
 ```
 
