@@ -5,7 +5,14 @@ Intelligent Digital Assets Assistant (IDAA)
 </center>
 </h1>
 
-[![Watch the Demo](assets/thumbnail.png)](https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil)
+[![pages-build-deployment](https://github.com/adityanikhil/IDAA/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/adityanikhil/IDAA/actions/workflows/pages/pages-build-deployment)
+
+<p align="center">
+    <img src="assets/thumbnail.png" width="800" alt="Thumbnail">
+</p>
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>View Demo</em></a>
+</p>
 
 ## Table of contents
 1. [Overview](#overview)
@@ -84,9 +91,11 @@ localhost:8000/docs
 ```
 
 ## License
-This repository is licensed under the MIT License. For more details, please refer to the LICENSE file.
+This repository is licensed under the MIT License. For more details, please refer to the [LICENSE](LICENSE) file.
 
 ## Contributors
-![]()
+<a href="https://github.com/AdityaNikhil/IDAA/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AdityaNikhil/IDAA" />
+</a>
 
 ---
