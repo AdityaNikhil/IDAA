@@ -1,13 +1,17 @@
-# requirements.txt
 streamlit
 langchain
 langchain-groq
+langchain-openai
 langchain_community
+langchain-experimental
 langchain-core
 langgraph
 pydantic
 PyYAML
 psycopg2-binary
 pandas
-
+fastapi
+uvicorn
+matplotlib
+plotly
 

@@ -1,4 +1,3 @@
-# app/initialize.py
 import sys
 import os
 from pathlib import Path
@@ -26,4 +25,10 @@ def setup_paths():
     # Set environment variables if needed
     os.environ['PROJECT_ROOT'] = str(project_root)
     os.environ['APP_ROOT'] = str(app_dir)
+
+
+
+
+
+    
 
