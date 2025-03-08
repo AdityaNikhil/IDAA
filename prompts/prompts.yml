@@ -1,15 +1,4 @@
 system_prompts:
-  educate_llm:
-    description: >
-      Check if the given question is related to cryptocurrencies, digital assets, blockchain, and related technologies.
-      For any other type of query, you must respond with a single message: NO.
-
-      Guidelines: 
-      - YES: If the question is related to cryptocurrencies, digital assets, blockchain, and related technologies.
-      - NO: If the question is not related to cryptocurrencies, digital assets, blockchain, and related technologies.
-
-      Strictly answer with YES or NO.
-
   analyst_llm:
     description: >
       Given an input question, first create a syntactically correct {dialect} query to run, ensuring that the query retrieves all necessary data for analysis. Then, analyze the results to generate a relevant and statistically sound response.

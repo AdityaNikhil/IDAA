@@ -8,22 +8,22 @@ from langchain_community.tools import QuerySQLDataBaseTool
 import os
 import time
 
-db_path = os.environ.get("DATABASE_URI")
-db = SQLDatabase.from_uri(db_path, include_tables=["cryptocurrencies", "market_data"])
-
 # Test Database connection
-def test_db_connection(db):
+def test_db_connection():
+    db_path = os.environ.get("DATABASE_URI")
+    global db
     try:
+        db = SQLDatabase.from_uri(db_path, include_tables=["cryptocurrencies", "market_data"])
         test_connection = {
             'table_1':db.run("SELECT * FROM cryptocurrencies LIMIT 1"),
             'table_2':db.run("SELECT * FROM market_data LIMIT 1")
         }
         for _, status in enumerate(test_connection):
             if 'Error' in status:
-                return 'Error'
-        return 'Success'
+                return False, 'Error'
+        return db, 'Success'
     except:
-        return 'Error'
+        return False, 'Error'
 
 def correct_query(state: State): 
     query = state["sql_query"]

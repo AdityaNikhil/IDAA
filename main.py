@@ -1,13 +1,13 @@
 import streamlit as st
 from typing import Dict
 import requests
-from utils.database import test_db_connection, db
+from utils.database import test_db_connection
 
 import initialize
 initialize.setup_paths()
 
 def process_via_api(prompt: str) -> Dict:
-    api_url = "http://fastapi:8000/process" 
+    api_url = "http://0.0.0.0:8000/process" 
     payload = {
         "question": prompt,
         "sql_query": "",
@@ -52,7 +52,7 @@ def create_sidebar():
         st.caption(f"{selected_model} is selected")
 
         # Database connection check
-        db_connection = test_db_connection(db)
+        db, db_connection = test_db_connection()
         if db_connection != 'Error':
             st.success("Database connection successful")
         else:

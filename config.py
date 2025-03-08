@@ -26,6 +26,5 @@ with open("prompts/prompts.yml", "r") as file:
     prompts = yaml.safe_load(file)
 
 # Access the prompts
-EDUCATE_SYS_PROMPT = prompts["system_prompts"]["educate_llm"]["description"]
 ANALYST_SYS_PROMPT = prompts["system_prompts"]["analyst_llm"]["description"]
 SUPERVISOR_LLM_PROMPT = prompts["system_prompts"]["supervisor_llm"]["description"]

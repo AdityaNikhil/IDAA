@@ -40,7 +40,7 @@ IDAA (Intelligent Digital Asset Advisor) aims to develop an AI-powered financial
 ## Setup
 
 ### Pre-requisites
-1. Ask the owner of the repo for the database uri. (Reach out [here](linkedin.com/in/aditya-nikhil))
+1. Ask the owner of the repo for the database uri. (Reach out [here](https://linkedin.com/in/aditya-nikhil))
 2. Gather API keys from langsmith, groq, openai (optional)
 3. Install docker
 
