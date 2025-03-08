@@ -47,10 +47,13 @@ IDAA (Intelligent Digital Asset Advisor) aims to develop an AI-powered financial
 
 ## Setup
 
+> [!IMPORTANT]
+> Make sure the ETL pipeline is set up and the data is successfully loaded into the PostgreSQL database.
+> If not, refer to the [ETL](etl/) directory for setup instructions before proceeding with the chatbot setup.
+
 ### Pre-requisites
-1. Ask the owner of the repo for the database uri. (Reach out [here](https://linkedin.com/in/aditya-nikhil))
-2. Gather API keys from langsmith, groq, openai (optional)
-3. Install docker
+1. Ensure that the data is loaded and setup in the PostgreSQL DB.
+2. Gather API keys from langsmith, groq, openai.
 
 ## Getting started
 Pull this project into your workspace
@@ -70,7 +73,7 @@ environment:
   TAVILY_API_KEY: "YOUR_API_KEY"
   GROQ_API_KEY: "YOUR_API_KEY"
   OPENAI_API_KEY: "YOUR_API_KEY" 
-  DATABASE_URI: "DATABASE_URI"
+  DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/postgres" 
 ```
 
 ### Docker building

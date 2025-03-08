@@ -1,6 +1,6 @@
 import re
 from models import State
-from config import llm, EDUCATE_SYS_PROMPT
+from config import llm
 from langchain.prompts.chat import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.tools.tavily_search import TavilySearchResults

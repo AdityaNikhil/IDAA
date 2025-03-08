@@ -1,7 +1,7 @@
 from models import State
 from config import llm, ANALYST_SYS_PROMPT
 from langchain.chains import create_sql_query_chain
-from utils.database import db
+from utils.database import test_db_connection
 from langchain.prompts import PromptTemplate
 
 analyst_prompt = prompt = PromptTemplate(
@@ -10,6 +10,8 @@ analyst_prompt = prompt = PromptTemplate(
 )
 
 def analyst_agent(state: State):
+
+    db, _ = test_db_connection()
     question = state['question']
     generate_query = create_sql_query_chain(llm, db, prompt=analyst_prompt)
     try:
