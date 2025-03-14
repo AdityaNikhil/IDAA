@@ -7,6 +7,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_community.tools import QuerySQLDataBaseTool
 import os
 import time
+import json
 
 # Test Database connection
 def test_db_connection():
@@ -140,17 +141,17 @@ def extract_response_and_code(response_text: str):
         parts = response_text.split("agent_response:")
         if len(parts) > 1:
             # Further split to separate agent response and python code
-            content = parts[1].split("python_code:")
-            
+            content = parts[1].split("data:")
+
             # Extract and clean the agent response
             agent_response = content[0].strip()
-            
+
             # Extract and clean the python code
-            python_code = content[1].strip() if len(content) > 1 else ""
-            
+            data = content[1].strip() if len(content) > 1 else ""
+
             return {
                 "agent_response": agent_response,
-                "python_code": python_code
+                "data": data
             }
     except Exception as e:
         print(f"Error parsing response: {str(e)}")
@@ -170,8 +171,16 @@ def generate_chart(state: State):
                 [
                 ("system",f""" Given the user question {question}, and the human readable answer {response}, 
                  
-                you will write a python code to generate intuitive plot to visualize the data in streamlit and plotly. 
-                 The generated output should only include python code and nothing more. 
+                Generate a structured response for a chart instead of Python code.
+                    
+                    Extract:
+                    - `x`: List of lists representing X-axis data points.
+                    - `y`: List of lists representing Y-axis data points.
+                    - `x_label`: String for X-axis label.
+                    - `y_label`: String for Y-axis label.
+                    - `title`: String for the chart title.
+                    - `chart_type`: String specifying the type of chart (e.g., "line", "bar").
+
                 
                 ** STRICTLY DO NOT MENTION any extra details apart from the python code. **
                 ** PROVIDE SYNTACTICALLY CORRECT PYTHON CODE ONLY. ENSURE EVERYTHING IS DEFINED PROPERLY**
@@ -183,22 +192,20 @@ def generate_chart(state: State):
                 Structure the response in the following format:
                 
                 agent_response: <your response>
-                python_code: <your python code>
+                data: <a structured response>
 
                 """),
                 ]
             )
             chain = prompt | llm
-            
+
             response = chain.invoke({})
             response = extract_response_and_code(response.content)
 
-            # Save the generated Python code 
-            code = response['python_code'].strip('```')
-            state["viz_code"] = code.strip('python')
-
             state['response'] = response['agent_response']
+            state['data'] = json.loads(response['data'])
 
             return state
 
     return state
+#%%

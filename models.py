@@ -8,7 +8,7 @@ class State(TypedDict):
     sources: list[str]
     web_results: list[str]
     summarized_results: list[str]
-    viz_code: str
+    data: str
     agents: str
     response: str
 
