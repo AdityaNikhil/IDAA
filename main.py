@@ -15,7 +15,7 @@ def process_via_api(prompt: str) -> Dict:
         "sources": [],
         "web_results": [],
         "summarized_results": [],
-        "viz_code": "",
+        "data": "",
         "agents": "",
         "response": ""
     }
@@ -74,11 +74,11 @@ def main():
         with st.chat_message(message["role"]):
             st.write(message["content"])
             # If message contains visualization code, execute it
-            if "viz_code" in message:
-                try:
-                    exec(message["viz_code"])
-                except Exception as e:
-                    st.error(f"Error displaying visualization: {str(e)}")
+            # if "viz_code" in message:
+            #     try:
+            #         exec(message["viz_code"])
+            #     except Exception as e:
+            #         st.error(f"Error displaying visualization: {str(e)}")
 
     # Handle user input
     if prompt := st.chat_input("What would you like to know?"):
@@ -99,10 +99,10 @@ def main():
                     }
                     
                     # Add visualization code if present
-                    if "viz_code" in response and response["viz_code"]:
-                        message_with_viz["viz_code"] = response["viz_code"]
-                        # Display current visualization
-                        exec(response["viz_code"])
+                    # if "viz_code" in response and response["viz_code"]:
+                    #     message_with_viz["viz_code"] = response["viz_code"]
+                    #     # Display current visualization
+                    #     exec(response["viz_code"])
                     
                     st.session_state.messages.append(message_with_viz)
 

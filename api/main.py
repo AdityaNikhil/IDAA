@@ -20,7 +20,7 @@ class Query(BaseModel):
     question: str
     sql_query: str = ""
     query_result: str = ""
-    viz_code: str = ""
+    data: str = ""
     sources: list[str] = []
     web_results: list[str] = []
     summarized_results: list[str] = []

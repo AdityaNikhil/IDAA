@@ -175,17 +175,17 @@ def generate_chart(state: State):
                     
                     Extract:
                     - `x`: List of lists representing X-axis data points.
-                    - `y`: List of lists representing Y-axis data points.
+                        e.g. [2020,2021,2022,2023...]
+                    - `series`: series of data to show on chart. 
+                        e.g. uv:[100,200,300,400], pv:[100,200,300,400], ...
                     - `x_label`: String for X-axis label.
                     - `y_label`: String for Y-axis label.
                     - `title`: String for the chart title.
-                    - `chart_type`: String specifying the type of chart (e.g., "line", "bar").
+                    - `chart_type`: String specifying the type of chart ("line", "bar" only).
 
                 
                 ** STRICTLY DO NOT MENTION any extra details apart from the python code. **
                 ** PROVIDE SYNTACTICALLY CORRECT PYTHON CODE ONLY. ENSURE EVERYTHING IS DEFINED PROPERLY**
-                 
-                Ensure that the figure size is (6, 3)
                  
                 Also, you will rewrite the human readable answer. Remove all other irrelevant details about generating the plot.  
                  
