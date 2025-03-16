@@ -11,8 +11,13 @@ Intelligent Digital Assets Assistant (IDAA)
     <img src="assets/architecture.png" width="700" alt="Thumbnail">
 </p>
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>View Demo</em></a>
+    <a href="https://youtu.be/fR2ar-ChBDY"><em>React Demo</em></a> | 
+    <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>Streamlit Demo</em></a>
 </p>
+
+> [!NOTE]
+> 🚧 **This repo uses REACT frontend. If you require streamlit frontend, head over to this [repo](https://github.com/AdityaNikhil/IDAA-Streamlit-App)**.
+
 
 ## Table of contents
 1. [Overview](#overview)
@@ -56,11 +61,11 @@ IDAA (Intelligent Digital Asset Advisor) aims to develop an AI-powered financial
 2. Gather API keys from langsmith, groq, openai.
 
 ## Getting started
-Pull this project into your workspace
+Clone this project into your workspace
 ```python
-git pull https://github.com/adityanikhil/idaa
+git clone https://github.com/adityanikhil/idaa
 ```
-Now inside the project's workspace, the following API's needs to be setup in place before getting started.
+Now `cd` into the project's workspace and setup the following file before getting started.
 
 ### Create `setup.yml` file
 ```shell
@@ -76,23 +81,47 @@ environment:
   DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/postgres" 
 ```
 
-### Docker building
+### Setting up chatbot endpoint
 
-Now that the APIs have been setup. Simply run, 
+Now that the APIs have been setup. Lets setup fast api endpoint,
+
+Building the api endpoint dockerfile,
+```python
+docker build -f Dockerfile.api -t api-service .
+```
+Now that it is built, lets run the dockerfile,
 
 ```python
-docker compose up --build
+docker run -p 8000:8000 api-service
 ```
 
-You will find your streamlit app running at: 
-```python
-localhost:8501
-```
-
-And also you can find the agent's fast API endpoints at:
+You can find the agent's fast API endpoint running at:
 ```python 
 localhost:8000/docs
 ```
+
+### React Frontend
+
+1. Clone this [frontend repo](https://github.com/yolandawu/IDAA-FN) into the current workspace.
+2. `cd` into the repo 
+    ```shell
+    cd IDAA-FN
+    ```
+4. Run `npm install`
+5. Adjust the backend API URL by editing the .env file:
+    ```shell
+    REACT_APP_BACKEND_URL=http://localhost:8000
+    ```
+6. Start the development server:
+    ```shell
+    npm run dev
+    ```
+Then open your browser and visit: [http://localhost:3000](http://localhost:3000)
+
+Checkout more ways to run the react frontend app [here](https://github.com/yolandawu/IDAA-FN?tab=readme-ov-file#deployment).
+
+### 🚧 NOTE 
+If you require **streamlit frontend**, head over to this [repo](https://github.com/AdityaNikhil/IDAA-Streamlit-App).
 
 ## License
 This repository is licensed under the MIT License. For more details, please refer to the [LICENSE](LICENSE) file.

@@ -130,10 +130,9 @@ def generate_response(state: State):
 
     content = "\n\n".join([summary for summary in state["summarized_results"]])
     response = chain.invoke({"question": state["question"], "context": content, "sources": state['sources']})
-    state['response'] = response.content + '\n\n'+ '#### References' + '\n' + '\n'.join(state['sources'])
+    state['response'] = response.content + '\n\n'+ '### References' + '\n' + '\n'.join([f'[{url}]({url})' for url in state['sources']]) # Add markdown links to the sources
 
     return state
-    
 
 def extract_response_and_code(response_text: str):
     try:
@@ -208,4 +207,3 @@ def generate_chart(state: State):
             return state
 
     return state
-#%%
