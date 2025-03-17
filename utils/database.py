@@ -7,23 +7,24 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_community.tools import QuerySQLDataBaseTool
 import os
 import time
-
-db_path = os.environ.get("DATABASE_URI")
-db = SQLDatabase.from_uri(db_path, include_tables=["cryptocurrencies", "market_data"])
+import json
 
 # Test Database connection
-def test_db_connection(db):
+def test_db_connection():
+    db_path = os.environ.get("DATABASE_URI")
+    global db
     try:
+        db = SQLDatabase.from_uri(db_path, include_tables=["cryptocurrencies", "market_data"])
         test_connection = {
             'table_1':db.run("SELECT * FROM cryptocurrencies LIMIT 1"),
             'table_2':db.run("SELECT * FROM market_data LIMIT 1")
         }
         for _, status in enumerate(test_connection):
             if 'Error' in status:
-                return 'Error'
-        return 'Success'
+                return False, 'Error'
+        return db, 'Success'
     except:
-        return 'Error'
+        return False, 'Error'
 
 def correct_query(state: State): 
     query = state["sql_query"]
@@ -129,10 +130,9 @@ def generate_response(state: State):
 
     content = "\n\n".join([summary for summary in state["summarized_results"]])
     response = chain.invoke({"question": state["question"], "context": content, "sources": state['sources']})
-    state['response'] = response.content + '\n\n'+ '#### References' + '\n' + '\n'.join(state['sources'])
+    state['response'] = response.content + '\n\n'+ '### References' + '\n' + '\n'.join([f'[{url}]({url})' for url in state['sources']]) # Add markdown links to the sources
 
     return state
-    
 
 def extract_response_and_code(response_text: str):
     try:
@@ -140,17 +140,17 @@ def extract_response_and_code(response_text: str):
         parts = response_text.split("agent_response:")
         if len(parts) > 1:
             # Further split to separate agent response and python code
-            content = parts[1].split("python_code:")
-            
+            content = parts[1].split("data:")
+
             # Extract and clean the agent response
             agent_response = content[0].strip()
-            
+
             # Extract and clean the python code
-            python_code = content[1].strip() if len(content) > 1 else ""
-            
+            data = content[1].strip() if len(content) > 1 else ""
+
             return {
                 "agent_response": agent_response,
-                "python_code": python_code
+                "data": data
             }
     except Exception as e:
         print(f"Error parsing response: {str(e)}")
@@ -170,34 +170,39 @@ def generate_chart(state: State):
                 [
                 ("system",f""" Given the user question {question}, and the human readable answer {response}, 
                  
-                you will write a python code to generate intuitive plot to visualize the data in streamlit and plotly. 
-                 The generated output should only include python code and nothing more. 
+                Generate a structured response for a chart instead of Python code.
+                    
+                    Extract:
+                    - `x`: List of lists representing X-axis data points.
+                        e.g. [2020,2021,2022,2023...]
+                    - `series`: series of data to show on chart. 
+                        e.g. uv:[100,200,300,400], pv:[100,200,300,400], ...
+                    - `x_label`: String for X-axis label.
+                    - `y_label`: String for Y-axis label.
+                    - `title`: String for the chart title.
+                    - `chart_type`: String specifying the type of chart ("line", "bar" only).
+
                 
                 ** STRICTLY DO NOT MENTION any extra details apart from the python code. **
                 ** PROVIDE SYNTACTICALLY CORRECT PYTHON CODE ONLY. ENSURE EVERYTHING IS DEFINED PROPERLY**
-                 
-                Ensure that the figure size is (6, 3)
                  
                 Also, you will rewrite the human readable answer. Remove all other irrelevant details about generating the plot.  
                  
                 Structure the response in the following format:
                 
                 agent_response: <your response>
-                python_code: <your python code>
+                data: <a structured response>
 
                 """),
                 ]
             )
             chain = prompt | llm
-            
+
             response = chain.invoke({})
             response = extract_response_and_code(response.content)
 
-            # Save the generated Python code 
-            code = response['python_code'].strip('```')
-            state["viz_code"] = code.strip('python')
-
             state['response'] = response['agent_response']
+            state['data'] = json.loads(response['data'])
 
             return state
 

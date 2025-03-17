@@ -1,4 +1,3 @@
-streamlit
 langchain
 langchain-groq
 langchain-openai
@@ -11,7 +10,10 @@ PyYAML
 psycopg2-binary
 pandas
 fastapi
+faiss-cpu
+pdfplumber
 uvicorn
 matplotlib
 plotly
+sentence-transformers
 

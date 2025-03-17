@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from workflow.graph import create_workflow
 import os
-from utils.database import db, test_db_connection
+from utils.database import test_db_connection
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -20,7 +20,7 @@ class Query(BaseModel):
     question: str
     sql_query: str = ""
     query_result: str = ""
-    viz_code: str = ""
+    data: str = ""
     sources: list[str] = []
     web_results: list[str] = []
     summarized_results: list[str] = []
@@ -38,7 +38,7 @@ async def process_query(query: Query):
 async def health_check():
 
     # Execute a simple query to check database connection
-    db_connection = test_db_connection(db)
+    db, db_connection = test_db_connection()
     if db_connection == 'Error':
         raise HTTPException(
             status_code=503,

@@ -25,10 +25,12 @@ def supervisor_agent(state: State):
 def supervisor_router(state: State):
     if state["agents"].lower() == "analyst":
         return "analyst"
-    elif state["agents"].lower() == "finish":
-        return "Irrelevant Query"
-    else:
+    elif state["agents"].lower() == "advisor":
+        return "advisor"
+    elif state["agents"].lower() == "prof":
         return "prof"
+    else:
+        return "Irrelevant Query"
     
 def end_node(state: State):
     
