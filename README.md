@@ -130,8 +130,9 @@ If you require **streamlit frontend**, head over to this [repo](https://github.c
 This repository is licensed under the MIT License. For more details, please refer to the [LICENSE](LICENSE) file.
 
 ## Contributors
-<a href="https://github.com/AdityaNikhil/IDAA/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=AdityaNikhil/IDAA" />
-</a>
+
+1. [Aditya Nikhil Digala](https://linkedin.com/in/aditya-nikhil)
+2. [Yang Wu](https://www.linkedin.com/in/yangywu/)
+3. [Vaeshnavi Vella](https://www.linkedin.com/in/vaeshnavi-vella/)
 
 ---
