@@ -4,6 +4,7 @@ etl/
 *.ipynb
 *.yml
 *.env
+*.faiss
 
 
 /node_modules

@@ -10,6 +10,8 @@ PyYAML
 psycopg2-binary
 pandas
 fastapi
+faiss-cpu
+pdfplumber
 uvicorn
 matplotlib
 plotly
