@@ -12,7 +12,8 @@ Intelligent Digital Assets Assistant (IDAA)
 </p>
 <p align="center">
     <a href="https://youtu.be/fR2ar-ChBDY"><em>React Demo</em></a> | 
-    <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>Streamlit Demo</em></a>
+    <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>Streamlit Demo</em></a> |
+    <a href="playground.ipynb"><em>Demo Notebook</em></a>
 </p>
 
 > [!NOTE]
@@ -55,6 +56,8 @@ IDAA (Intelligent Digital Asset Advisor) aims to develop an AI-powered financial
 > [!IMPORTANT]
 > Make sure the ETL pipeline is set up and the data is successfully loaded into the PostgreSQL database.
 > If not, refer to the [ETL](etl/) directory for setup instructions before proceeding with the chatbot setup.
+> 
+> Run the [demo notebook](playground.ipynb) for a quick understanding of how this app works ;) 
 
 ### Pre-requisites
 1. Ensure that the data is loaded and setup in the PostgreSQL DB.
