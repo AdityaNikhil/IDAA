@@ -45,4 +45,4 @@ async def health_check():
             detail="Database connection failed"
         )
     return {"status": "healthy", "database": "connected"}
-
+    

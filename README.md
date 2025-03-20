@@ -11,9 +11,9 @@ Intelligent Digital Assets Assistant (IDAA)
     <img src="assets/architecture.png" width="700" alt="Thumbnail">
 </p>
 <p align="center">
-    <a href="playground.ipynb"><em>Demo Notebook</em></a>
+    <a href="playground.ipynb"><em>Demo Notebook</em></a> |
     <a href="https://youtu.be/fR2ar-ChBDY"><em>React Demo</em></a> | 
-    <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>Streamlit Demo</em></a> |
+    <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>Streamlit Demo</em></a>
 </p>
 
 > [!NOTE]
