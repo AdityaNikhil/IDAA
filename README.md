@@ -81,7 +81,7 @@ environment:
   TAVILY_API_KEY: "YOUR_API_KEY"
   GROQ_API_KEY: "YOUR_API_KEY"
   OPENAI_API_KEY: "YOUR_API_KEY" 
-  DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/postgres" 
+  DATABASE_URI: "postgresql://postgres:postgres@host.docker.internal:5432/postgre" 
 ```
 
 ### Setting up chatbot endpoint
