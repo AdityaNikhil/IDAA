@@ -1,11 +1,10 @@
 # Intelligent Digital Assets Assistant (IDAA)
 
-<p align="center">
-  <img src="assets/architecture.png" width="700" alt="Thumbnail">
-</p>
-
 [![pages-build-deployment](https://github.com/adityanikhil/IDAA/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/adityanikhil/IDAA/actions/workflows/pages/pages-build-deployment)
 
+<p align="center">
+    <img src="assets/architecture.png" width="700" alt="Thumbnail">
+</p>
 <p align="center">
     <a href="playground.ipynb"><em>Demo Notebook</em></a> |
     <a href="https://youtu.be/fR2ar-ChBDY"><em>React Demo</em></a> |
@@ -79,8 +78,8 @@ environment:
   LANGSMITH_API_KEY: "YOUR_API_KEY"
   TAVILY_API_KEY: "YOUR_API_KEY"
   GROQ_API_KEY: "YOUR_API_KEY"
-  OPENAI_API_KEY: "YOUR_API_KEY"
-  DATABASE_URI: "postgresql://postgres:postgres@localhost:5432/postgres"
+  OPENAI_API_KEY: "YOUR_API_KEY" 
+  DATABASE_URI: "postgresql://postgres:postgres@host.docker.internal:5432/postgres" 
 ```
 
 ---
