@@ -8,7 +8,9 @@
 <p align="center">
     <a href="playground.ipynb"><em>Demo Notebook</em></a> |
     <a href="https://youtu.be/fR2ar-ChBDY"><em>React Demo</em></a> |
-    <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>Streamlit Demo</em></a>
+    <a href="https://www.youtube.com/watch?v=77j7a_dnGb4&ab_channel=AdityaNikhil"><em>Streamlit Demo</em></a> | 
+    <a href="https://hub.docker.com/repository/docker/adityadigala/idaa-react-app/"><em>Docker Image</em>
+    
 </p>
 
 > [!NOTE]
@@ -57,6 +59,7 @@ This modular approach ensures a well-rounded financial advisory experience.
 > [!IMPORTANT]
 > **Ensure the ETL pipeline is configured and PostgreSQL data is loaded before proceeding.**
 > Refer to the [ETL setup](etl/) for more details.
+> Ensure the ETL pipeline is up and running.
 
 ### Prerequisites
 - **PostgreSQL Database**: Ensure historical data is loaded.
@@ -83,19 +86,16 @@ environment:
 ```
 
 ---
-## Getting Started
-### Deploying the FastAPI Backend
-#### 1. Build the API Service
+## Getting Started 
+### Setting up the [Docker Image](https://hub.docker.com/repository/docker/adityadigala/idaa-react-app/)
+This docker image consists of the FastAPI endpoint responsible for generating chatbot responses. 
+#### Pull the docker image
 ```sh
-docker build -f Dockerfile.api -t api-service .
+docker pull adityadigala/idaa-react-app:latest 
 ```
-#### 2. Run the API Service
+#### Run the Fast API service through the docker image
 ```sh
-docker run -p 8000:8000 api-service
-```
-#### 3. Access the API
-```sh
-http://localhost:8000/docs
+docker run -p 8000:8000 -v 'path/to/setup.yml':/app/setup.yml adityadigala/idaa-react-app:latest
 ```
 
 ### Running the React Frontend
