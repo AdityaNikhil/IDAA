@@ -21,7 +21,7 @@ def advisor_agent(state: State):
 
         # Initialize Groq LLM with the correct model
         groq_api_key = os.getenv("GROQ_API_KEY")
-        llm = ChatGroq(model="mixtral-8x7b-32768", api_key=groq_api_key)
+        llm = ChatGroq(model="llama-3.1-8b-instant", api_key=groq_api_key)
 
         # Generate response using LangChain LLM
         response = advisor_prompt | llm
